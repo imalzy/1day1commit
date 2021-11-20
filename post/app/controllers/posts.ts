@@ -14,7 +14,6 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
     })
 }
 const getById = async (req: Request, res: Response, next: NextFunction) => {
-
     const id: string = req.params.id;
     const result: AxiosResponse = await axios.get('https://jsonplaceholder.typicode.com/posts/' + id)
     const data: IPost[] = result.data;

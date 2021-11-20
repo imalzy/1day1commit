@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon source/server.ts",
+    "dev": "nodemon app/server.ts",
     "build": "rm -rf build/ && prettier --write source/ && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm run typings",
+    "typings": "typings install"
   },
   "keywords": [],
   "author": "",
