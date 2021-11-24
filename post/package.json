@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app/server.ts",
-    "build": "rm -rf build/ && prettier --write source/ && tsc",
+    "build": "rm -rf build/ && prettier --write app/ && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "npm run typings",
     "typings": "typings install"

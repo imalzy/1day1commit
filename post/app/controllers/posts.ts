@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { IPost } from '../models/posts'
 import axios, { AxiosResponse } from 'axios'
 import { WsConstant } from '../wsconstant'
+import validator from '../middleware/posts'
 
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -24,8 +25,9 @@ const getById = async (req: Request, res: Response, next: NextFunction) => {
     })
 }
 const put = async (req: Request, res: Response, next: NextFunction) => {
+    console.log("controller", req.body)
     const id: string = req.params.id;
-    const reqBody:IPost = req.body;
+    const reqBody: IPost = req.body;
     // const title: string = req.body.title;
     // const body: string = req.body.body;
     // const userId: string = req.body.userId;
@@ -44,5 +46,7 @@ const put = async (req: Request, res: Response, next: NextFunction) => {
     //     success:true
     // })
 }
+
+
 
 export default { get, getById, put };
