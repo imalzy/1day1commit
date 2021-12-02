@@ -25,28 +25,47 @@ const getById = async (req: Request, res: Response, next: NextFunction) => {
     })
 }
 const put = async (req: Request, res: Response, next: NextFunction) => {
-    console.log("controller", req.body)
     const id: string = req.params.id;
-    const reqBody: IPost = req.body;
-    // const title: string = req.body.title;
-    // const body: string = req.body.body;
-    // const userId: string = req.body.userId;
-    return res.json(reqBody)
+    const title: string = req.body.title ?? null;
+    const body: string = req.body.body ?? null;
+    const result: AxiosResponse = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, { ...(title && { title }), ...(body && { body }) })
 
-    // const data = {
-    //     id,
-    //     title,
-    //     body,
-    //     userId
-    // }
-    // const result: AxiosResponse = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, data)
-    // console.debug(result)
-    // console.log(result)
-    // return res.status(200).json({
-    //     success:true
-    // })
+    return res.status(200).json({
+        data: null,
+        message: WsConstant.UPDATED_SUCCESS,
+        success: true,
+    })
 }
 
+const post = async (req: Request, res: Response, next: NextFunction) => {
+    const title: string = req.body.title;
+    const body: string = req.body.body;
+
+    const result: AxiosResponse = await axios.post(`https://jsonplaceholder.typicode.com/posts`, {
+        title,
+        body
+    });
+
+    return res.status(200).json({
+        data: null,
+        message: WsConstant.POST_SUCCESS,
+        success: true,
+    });
+}
+
+const deletePost = async (req: Request, res: Response, next: NextFunction) => {
+    // get the post id from req.params
+    let id: string = req.params.id;
+    // delete the post
+    let response: AxiosResponse = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    // return response
+    return res.status(200).json({
+        data: null,
+        message: WsConstant.DELETE_SUCCESS,
+        success: true,
+    });
+};
 
 
-export default { get, getById, put };
+
+export default { get, getById, put, post, deletePost };

@@ -36,6 +36,7 @@ const rfsStream = rfs.createStream(process.env.LOG_FILE || log_file_name, {
     compress: 'gzip', // compress rotated files
     path: 'logs/'
 });
+
 router.use(morgan(process.env.LOG_FORMAT || "dev", { stream: process.env.LOG_FILE ? rfsStream : process.stdout }))
 if (process.env.LOG_FILE) {
     router.use(morgan(process.env.LOG_FORMAT || "dev"));

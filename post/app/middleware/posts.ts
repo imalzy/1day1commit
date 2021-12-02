@@ -7,9 +7,12 @@ const createValidationFor = (route: string) => {
             return [
                 check('title').matches(/^[A-Za-z\s]+$/).withMessage('Title must be alphabetic.'),
                 check('body').matches(/^[A-Za-z\s]+$/).withMessage('Body must be alphabetic.'),
-                check('userId').isNumeric().withMessage('User id must be numberic')
             ];
-
+        case 'posts':
+            return [
+                check('title').matches(/^[A-Za-z\s]+$/).withMessage('Title must be alphabetic.'),
+                check('body').matches(/^[A-Za-z\s]+$/).withMessage('Body must be alphabetic.'),
+            ];
         default:
             return [];
     }
@@ -17,14 +20,13 @@ const createValidationFor = (route: string) => {
 
 function checkValidationResult(req: Request, res: Response, next: NextFunction) {
     const result = validationResult(req);
-    console.log(res.status)
     if (result.isEmpty()) {
         return next();
     }
 
     res.status(422).json({
         method: req.method,
-        status: res.statusCode, 
+        status: res.statusCode,
         errors: result.array()
     });
 }
